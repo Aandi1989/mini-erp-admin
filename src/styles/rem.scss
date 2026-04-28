@@ -1,0 +1,16 @@
+@use "sass:math";
+
+$rem_enabled: true;
+$html_font_size: 16px;
+
+@function stripUnit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+
+@function rem($pxValue) {
+  @if $rem_enabled {
+    @return #{math.div(stripUnit($pxValue), stripUnit($html_font_size))}rem;
+  }
+
+  @return #{stripUnit($pxValue)}px;
+}
