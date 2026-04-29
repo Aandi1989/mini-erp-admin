@@ -1,8 +1,62 @@
-import { Paper, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import { Button, Paper, Stack, Typography } from "@mui/material";
+
+interface TrainingCounterCardProps {
+  title: string;
+  value: number;
+  description: string;
+  onIncrement: () => void;
+}
+
+const TrainingCounterCard = ({
+  title,
+  value,
+  description,
+  onIncrement,
+}: TrainingCounterCardProps) => {
+  return (
+    <Paper className="feature-card" elevation={0}>
+      <Stack spacing={2}>
+        <div>
+          <Typography variant="h5" gutterBottom>
+            {title}
+          </Typography>
+          <Typography color="text.secondary">{description}</Typography>
+        </div>
+
+        <div>
+          <Typography variant="overline" color="text.secondary">
+            Local state value
+          </Typography>
+          <Typography variant="h3" className="dashboard-counter__value">
+            {value}
+          </Typography>
+        </div>
+
+        <Button variant="contained" onClick={onIncrement} sx={{ alignSelf: "flex-start" }}>
+          Increase value
+        </Button>
+      </Stack>
+    </Paper>
+  );
+};
 
 export const DashboardPage = () => {
+  const [reviewedScreens, setReviewedScreens] = useState(1);
+
+  const handleIncreaseReviewedScreens = () => {
+    setReviewedScreens((currentValue) => currentValue + 1);
+  };
+
   return (
     <Stack spacing={3}>
+      <TrainingCounterCard
+        title="Props and state training card"
+        value={reviewedScreens}
+        description="DashboardPage owns the state and passes data into this child component through props."
+        onIncrement={handleIncreaseReviewedScreens}
+      />
+
       <Paper className="feature-card" elevation={0}>
         <Typography variant="h5" gutterBottom>
           Why this shell exists
