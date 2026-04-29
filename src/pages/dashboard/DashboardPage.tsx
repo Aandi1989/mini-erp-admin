@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 
+import { useAppNavigate } from "../../shared/hooks/useAppNavigate";
+
 interface TrainingCounterCardProps {
   title: string;
   value: number;
@@ -43,9 +45,20 @@ const TrainingCounterCard = ({
 
 export const DashboardPage = () => {
   const [reviewedScreens, setReviewedScreens] = useState(1);
+  const { navigateWithFilters } = useAppNavigate();
 
   const handleIncreaseReviewedScreens = () => {
     setReviewedScreens((currentValue) => currentValue + 1);
+  };
+
+  const handleOpenPatientsPage = () => {
+    navigateWithFilters({
+      to: "/patients",
+      searchParams: {
+        city: "brest",
+        department: "diagnostics",
+      },
+    });
   };
 
   return (
@@ -58,13 +71,21 @@ export const DashboardPage = () => {
       />
 
       <Paper className="feature-card" elevation={0}>
-        <Typography variant="h5" gutterBottom>
-          Why this shell exists
-        </Typography>
-        <Typography color="text.secondary">
-          This app is intentionally starting with structure first. We want the same top-level
-          ideas as the real ERP UI before we add business logic.
-        </Typography>
+        <Stack spacing={2}>
+          <div>
+            <Typography variant="h5" gutterBottom>
+              Why this shell exists
+            </Typography>
+            <Typography color="text.secondary">
+              This app is intentionally starting with structure first. We want the same top-level
+              ideas as the real ERP UI before we add business logic.
+            </Typography>
+          </div>
+
+          <Button variant="outlined" onClick={handleOpenPatientsPage} sx={{ alignSelf: "flex-start" }}>
+            Open Patients with prefilled filters
+          </Button>
+        </Stack>
       </Paper>
 
       <Paper className="feature-card" elevation={0}>

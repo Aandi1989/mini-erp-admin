@@ -105,3 +105,19 @@ a {
   font-weight: 700;
   color: #1f6f5c;
 }
+
+
+.filters-toolbar {
+  align-items: flex-start;
+}
+
+.filters-toolbar .MuiTextField-root {
+  min-width: rem(220);
+}
+
+.filters-toolbar__link {
+  color: #1f6f5c;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: rem(3);
+}

@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { DashboardPage } from "../pages/dashboard/DashboardPage";
 import { NotFoundPage } from "../pages/not-found/NotFoundPage";
+import { PatientDetailsPage } from "../pages/patient-details/PatientDetailsPage";
 import { PatientsPage } from "../pages/patients/PatientsPage";
 import { ServicesPage } from "../pages/services/ServicesPage";
 import { AppLayout } from "../shared/layout/AppLayout";
@@ -17,6 +18,7 @@ export const AppRouter = () => {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/patients" element={<PatientsPage />} />
+        <Route path="/patients/:patientId" element={<PatientDetailsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         {/* path="*" is usually used as a catch-all route for unknown URLs. 
          <Route path="*" element={<NotFoundPage />} />  */}
