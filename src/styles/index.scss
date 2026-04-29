@@ -121,3 +121,28 @@ a {
   text-decoration: underline;
   text-underline-offset: rem(3);
 }
+
+
+.data-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: rem(16);
+}
+
+.data-row {
+  padding: rem(16);
+  border: rem(1) solid rgba(29, 36, 51, 0.08);
+  border-radius: rem(14);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+
+.loading-state {
+  display: flex;
+  min-height: rem(120);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: rem(12);
+}
