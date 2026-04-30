@@ -1,8 +1,10 @@
 import type { PropsWithChildren } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Provider } from "react-redux";
 
 import theme from "../theme/theme";
+import { store } from "../store";
 
 export const AppProviders = ({ children }: PropsWithChildren) => {
   return (
@@ -10,9 +12,11 @@ export const AppProviders = ({ children }: PropsWithChildren) => {
     <ThemeProvider theme={theme}>
       {/* Applies MUI's base reset/default browser normalization. */}
       <CssBaseline />
-      {/* Enables client-side routing. 
+      <Provider store={store}>
+        {/* Enables client-side routing. 
        Without it, Route, Routes, Navigate, NavLink, and Outlet would not work. */}
-      <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>{children}</BrowserRouter>
+      </Provider>
     </ThemeProvider>
   );
 };

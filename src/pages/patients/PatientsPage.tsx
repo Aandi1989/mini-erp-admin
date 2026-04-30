@@ -14,6 +14,11 @@ import { NavLink } from "react-router-dom";
 import type { PatientListItem } from "../../mock-api/data";
 import { useAppSearchParams } from "../../shared/hooks/useAppSearchParams";
 import PatientsService from "../../services/patients";
+import {
+  setSelectedCity,
+  setSelectedDepartment,
+} from "../../store/appPreferences";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 const cityOptions = [
   { value: "minsk", label: "Minsk" },
@@ -35,6 +40,12 @@ export const PatientsPage = () => {
     handleChangeSearchParam,
     handleChangeMultipleSearchParams,
   } = useAppSearchParams();
+
+  const dispatch = useAppDispatch();
+  const { selectedCity, selectedDepartment } = useAppSelector(
+    (state) => state.appPreferences,
+  );
+
   const [patients, setPatients] = useState<PatientListItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -121,7 +132,10 @@ export const PatientsPage = () => {
               select
               label="City"
               value={queryCity}
-              onChange={(event) => handleChangeSearchParam("city", event.target.value)}
+              onChange={(event) => {
+                handleChangeSearchParam("city", event.target.value);
+                dispatch(setSelectedCity(event.target.value));
+              }}
             >
               {cityOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -134,7 +148,10 @@ export const PatientsPage = () => {
               select
               label="Department"
               value={queryDepartment}
-              onChange={(event) => handleChangeSearchParam("department", event.target.value)}
+              onChange={(event) => {
+                handleChangeSearchParam("department", event.target.value);
+                dispatch(setSelectedDepartment(event.target.value));
+              }}
             >
               {departmentOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -152,6 +169,15 @@ export const PatientsPage = () => {
             />
           </Stack>
         </Stack>
+      </Paper>
+
+      <Paper className="feature-card" elevation={0}>
+        <Typography variant="h6" gutterBottom>
+          Redux state snapshot
+        </Typography>
+        <Typography color="text.secondary">
+          selectedCity={selectedCity}, selectedDepartment={selectedDepartment}
+        </Typography>
       </Paper>
 
       <Paper className="feature-card" elevation={0}>

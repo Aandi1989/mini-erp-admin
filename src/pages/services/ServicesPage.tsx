@@ -1,46 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Alert, CircularProgress, Paper, Stack, Typography } from "@mui/material";
 
-import type { ServiceListItem } from "../../mock-api/data";
-import ClinicServicesService from "../../services/services";
+import { fetchServices } from "../../store/services";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 export const ServicesPage = () => {
-  const [services, setServices] = useState<ServiceListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useAppDispatch();
+  const { items, isLoading, errorMessage } = useAppSelector((state) => state.services);
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const { signal } = abortController;
-
-    const loadServices = async () => {
-      setIsLoading(true);
-      setErrorMessage("");
-      setServices([]);
-
-      try {
-        const result = await ClinicServicesService.getServices(signal);
-
-        if (!signal.aborted) {
-          setServices(result);
-        }
-      } catch (error) {
-        if (!signal.aborted && error instanceof Error) {
-          setErrorMessage(error.message);
-        }
-      } finally {
-        if (!signal.aborted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadServices();
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
+    dispatch(fetchServices());
+  }, [dispatch]);
 
   return (
     <Paper className="feature-card" elevation={0}>
@@ -51,7 +21,8 @@ export const ServicesPage = () => {
               Services
             </Typography>
             <Typography color="text.secondary">
-              This page now loads data through a service layer instead of hardcoding the content.
+              This page now loads data through a Redux async thunk instead of local component async
+              state.
             </Typography>
           </div>
         </div>
@@ -65,13 +36,13 @@ export const ServicesPage = () => {
 
         {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
 
-        {!errorMessage && !isLoading && services.length === 0 ? (
+        {!errorMessage && !isLoading && items.length === 0 ? (
           <Typography color="text.secondary">No services are available right now.</Typography>
         ) : null}
 
         {!isLoading ? (
           <Stack spacing={1.5}>
-            {services.map((service) => (
+            {items.map((service) => (
               <Paper key={service.id} className="data-row" elevation={0}>
                 <Typography fontWeight={600}>{service.name}</Typography>
                 <Typography color="text.secondary">
