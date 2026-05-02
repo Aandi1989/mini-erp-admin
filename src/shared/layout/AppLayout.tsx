@@ -6,6 +6,7 @@ const navigationItems = [
   { to: "/dashboard", label: "Dashboard" },
   { to: "/patients", label: "Patients" },
   { to: "/services", label: "Services" },
+  { to: "/mobx-patient", label: "MobX Patient" },
 ];
 
 export const AppLayout = () => {

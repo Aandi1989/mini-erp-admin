@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 
 import theme from "../theme/theme";
 import { store } from "../store";
+import { rootStore, StoreProvider } from "../mobx/rootStore";
 
 export const AppProviders = ({ children }: PropsWithChildren) => {
   return (
@@ -14,9 +15,12 @@ export const AppProviders = ({ children }: PropsWithChildren) => {
       <CssBaseline />
       {/* Every React component inside this provider can access the Redux store. */}
       <Provider store={store}>
-        {/* Enables client-side routing. 
+        {/* Makes MobX stores available to all components below. */}
+        <StoreProvider value={rootStore}>
+          {/* Enables client-side routing. 
        Without it, Route, Routes, Navigate, NavLink, and Outlet would not work. */}
-        <BrowserRouter>{children}</BrowserRouter>
+          <BrowserRouter>{children}</BrowserRouter>
+        </StoreProvider>
       </Provider>
     </ThemeProvider>
   );

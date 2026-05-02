@@ -7,6 +7,13 @@ export interface PatientListItem {
   visitDate: string;
 }
 
+export interface PatientFileItem {
+  id: number;
+  patientId: number;
+  name: string;
+  type: "pdf" | "image" | "document";
+}
+
 export interface ServiceListItem {
   id: number;
   name: string;
@@ -47,6 +54,13 @@ export const patientList: PatientListItem[] = [
     department: "diagnostics",
     visitDate: "2026-05-01",
   },
+];
+
+export const patientFilesList: PatientFileItem[] = [
+  { id: 1, patientId: 42, name: "Diagnostics report", type: "pdf" },
+  { id: 2, patientId: 42, name: "Retina scan", type: "image" },
+  { id: 3, patientId: 43, name: "Reception note", type: "document" },
+  { id: 4, patientId: 45, name: "Surgery preparation checklist", type: "document" },
 ];
 
 export const serviceList: ServiceListItem[] = [

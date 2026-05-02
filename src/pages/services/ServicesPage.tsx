@@ -46,7 +46,7 @@ export const ServicesPage = () => {
           <Stack spacing={1.5}>
             {items.map((service) => (
               <Paper key={service.id} className="data-row" elevation={0}>
-                <Typography fontWeight={600}>{service.name}</Typography>
+                <Typography sx={{ fontWeight: 600 }}>{service.name}</Typography>
                 <Typography color="text.secondary">
                   department={service.department}, price=${service.price}
                 </Typography>

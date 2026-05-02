@@ -165,7 +165,7 @@ export const PatientsPage = () => {
               type="date"
               value={queryDate}
               onChange={(event) => handleChangeSearchParam("date", event.target.value)}
-              InputLabelProps={{ shrink: true }}
+              slotProps={{ inputLabel: { shrink: true } }}
             />
           </Stack>
         </Stack>
@@ -203,7 +203,7 @@ export const PatientsPage = () => {
             <Stack spacing={1.5}>
               {patients.map((patient) => (
                 <Paper key={patient.id} className="data-row" elevation={0}>
-                  <Typography fontWeight={600}>
+                  <Typography sx={{ fontWeight: 600 }}>
                     {patient.firstName} {patient.lastName}
                   </Typography>
                   <Typography color="text.secondary">
