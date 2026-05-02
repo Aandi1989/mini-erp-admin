@@ -12,6 +12,7 @@ export const AppProviders = ({ children }: PropsWithChildren) => {
     <ThemeProvider theme={theme}>
       {/* Applies MUI's base reset/default browser normalization. */}
       <CssBaseline />
+      {/* Every React component inside this provider can access the Redux store. */}
       <Provider store={store}>
         {/* Enables client-side routing. 
        Without it, Route, Routes, Navigate, NavLink, and Outlet would not work. */}

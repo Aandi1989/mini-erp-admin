@@ -10,6 +10,8 @@ export const ServicesPage = () => {
 
   useEffect(() => {
     dispatch(fetchServices());
+    /* React Hook rules say every external value used inside an effect should be listed as a dependency. 
+      dispatch from React Redux is stable, so this effect effectively runs once.*/
   }, [dispatch]);
 
   return (
